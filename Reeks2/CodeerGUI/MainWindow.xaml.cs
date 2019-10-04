@@ -25,6 +25,8 @@ namespace CodeerGUI
                 _input = txtInput.Text;
                 _codeerbareString = new PlainText();
             }
+
+            if (!_input.Equals(txtInput.Text)) _input = txtInput.Text;
             
             if (radioBlok.IsChecked.GetValueOrDefault(false))
             {
