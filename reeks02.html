@@ -3,13 +3,39 @@
 <html lang="nl">
   <head>
     <title>Reeks 02: Structural Patterns</title>
+    <link rel="stylesheet" href="uforaTiwiStijl.css?_&amp;d2lSessionVal=tsTXTyHVVEzxUSvSIc1HU4t1D&amp;ou=57141"/>
     <style>
       .codeblock {display:block; border:1px dotted black;}
       .blokcodering {border: 1px solid black; width:180px;}
       .blokcodering td {border: 1px solid black; width: 20px; height: 20px;}
       pre {background-color: #333333; color: white; border:1px solid black; padding: 4px; margin-top: 20px; margin-bottom: 20px; font-size: 13px;}
     </style>
-  </head>
+  <script>function lti_launch( vars ) { var query = ''; for(var key in vars) { if(query.length == 0) { query += '?' + key + '=' + encodeURIComponent(vars[key]); } else { query += '&' + key + '=' + encodeURIComponent(vars[key]); } } location.replace( '/d2l/customization/pearsonlti/6606/Launch' + query ); }</script><script src="/d2l/common/math/MathML.js?v=20.19.9.18072-31"></script><script>document.addEventListener('DOMContentLoaded', function() { D2LMathML.DesktopInit('https://s.brightspace.com/lib/mathjax/2.6.1/MathJax.js?config=MML_HTMLorMML','https://s.brightspace.com/lib/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML%2cSafe'); });</script><script>window.addEventListener('message', function(event) { 
+					if( !event.data ) {
+						console.debug( 'Empty event received' );
+						return;
+					}
+					var params = JSON.parse(event.data);
+					if( !params.subject || params.subject !== 'lti.frameResize') {
+						console.debug( 'Message subject was not lti.frameResize' );
+						return;
+					}
+			
+					const MAX_FRAME_HEIGHT = 10000
+					if( !params.height || params.height < 1 || params.height > MAX_FRAME_HEIGHT ) {
+						console.warn( 'Invalid height value received, aborting' );
+						return;
+					}
+					var el = document.getElementsByTagName( 'iframe' );
+					for ( var i=0; i < el.length; i++ ) {
+						if( el[i].contentWindow === event.source ) {
+							el[i].style.height = params.height + 'px';
+                            el[i].style.width = '100%';
+							console.info( 'Setting iFrame height to ' + params.height );
+                            console.info( 'Setting iFrame width to 100%' );
+						}
+					}
+				});</script></head>
   <body>
     
     <h1>Reeks 02: Structural Patterns</h1>
@@ -38,9 +64,9 @@
     Lees eerst de opgave volledig door, zonder code te schrijven. 
     <ol>
       <li>
-	Welk(e) design pattern(s) is/zijn hier het meest aangewezen? Toon aan de hand van een klassendiagram aan hoe je het/de pattern(s) implementeerde. Duid hierin aan welke klassen, methodes, ... uit het programma corresponderen met de verschillende rollen in het klassendiagram van het pattern.<br/>
+	Welk(e) design pattern(s) is/zijn hier het meest aangewezen? Maak in PlantUML het klassendiagram dat aantoont hoe je het/de pattern(s) zal implementeren. Duid hierin aan welke klassen, methodes, ... uit het programma corresponderen met de verschillende rollen in het klassendiagram van het pattern.<br/>
       </li>
-      <li><b>Belangrijk:</b> Begin pas met de implementatie nadat je ontwerp volledig afgewerkt is! De UML van je ontwerp zal je bovendien moeten indienen (zie hieronder).
+      <li><b>Belangrijk:</b> Begin pas met de implementatie nadat je ontwerp volledig afgewerkt is! De UML van je ontwerp moet worden ingediend als <b>.puml</b>-bestand.
       </li>
     </ol>
 
@@ -142,21 +168,19 @@ Geef coderingen: blok wissel blok cijfer wissel</code></pre>
 	<p>
 	  In de GUI (zie ook de mockup hieronder) kan een gebruiker de te coderen tekst invullen in de bovenste TextBox. Daarna kan de gebruiker verschillende coderingen toevoegen. Telkens een codering toegevoegd wordt, verschijnt het resultaat van de volledige codering in de onderste TextBox. 
 	</p>
-	<p><img src="images/reeks2_mockup.png" alt="GUIMockup"/><br/><i>Mockup van de GUI</i></p>
+	<p><img src="images/reeks2_mockup.png?_&amp;d2lSessionVal=tsTXTyHVVEzxUSvSIc1HU4t1D&amp;ou=57141" alt="GUIMockup"/><br/><i>Mockup van de GUI</i></p>
       </li>
     </ul>
 
 
     <h3>Indienen</h3>
+    <ul>
+<li>Schrijf je in voor &eacute;&eacute;n groep uit de categorie <b>Opdracht1_Groepen</b>, samen met je partner.
+<li>Bij <b>Opdracht1</b> wordt &eacute;&eacute;n <b>.puml</b>-bestand ingediend, met het klassediagram van het eerste puntje van de opgave.
     <p>
-      Dien het klassendiagram (of de klassendiagrammen) van het eerste puntje van de opgave in via de Minerva Dropbox - Reeks2.
-      Bij het indienen maak je 1 .pdf-bestand per twee studenten. De bestandsnaam bevat de naam van beide studenten, vb <code>reeks02_Piet_Pieters_An_Jansens.pdf</code>. Dit document bevat een afdrukbare versie van het klassediagram en bevat ook de naam van de beide studenten (moet mee afgedrukt worden). Eventueel kan je ook extra uitleg toevoegen op de .pdf
-    <p>
-      Per groep (2 personen) hoef je maar 1 keer in te dienen. Deadline voor indienen is <b>zondag 6 oktober 23:59</b>.
+      Per groep (2 personen) hoef je maar 1 keer in te dienen. Deadline voor indienen is <b>zaterdag 5 oktober 23:59</b>.
     </p>
-    Voor het tekenen van UML diagrammen kan je gebruikmaken van Microsoft Visio of Visual Paradigm. Andere programma's mogen uiteraard ook gebruikt worden, maar volg wel de correcte UML notatie zoals beschreven in het handboek. De UML laten genereren door Visual Studio is echter <b>niet</b> toegelaten!
-    </p>
-
+  </ul>
 
     <h2  id="deel2">2. Bestandsbeheer</h2>
     <p>
