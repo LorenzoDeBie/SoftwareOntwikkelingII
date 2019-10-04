@@ -1,0 +1,30 @@
+﻿@startuml
+
+interface IFile {
+    Name: string
+    GetContent(username : string) : string
+}
+
+together {
+    class File {
+        - _name : string
+        - _content : string
+        ~ IsLoaded : bool
+        ~ IsSecret : bool
+        + GetContent(username : string) : string
+    }
+    
+    class FileProxy {
+        + Name : string
+        + GetContent(username : string) string
+    }
+}
+
+IFile <|.. File
+IFile <|.. FileProxy
+
+FileProxy *-- File
+
+File -[hidden]> FileProxy
+
+@enduml
