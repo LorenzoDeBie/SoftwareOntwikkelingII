@@ -1,0 +1,54 @@
+﻿@startuml
+
+class FileSystem {
+- root: File
+- current_dir: File
++ FileSystem()
++ cd(path: string): void
++ pwd(): string
++ dir(): string
++ tree(): string
++ mktext(name: string): void
++ mkdir(name: string): void
+}
+
+abstract class File {
+- name: string {not Null}
++ Parent: Folder
++ / Name: string {readOnly}
++ / IsRoot: bool {readOnly}
++ / PathName: string {readOnly}
++ ListName: string {readOnly}
++ File(name: string)
++ PrintTree(indent: int): string
+}
+
+class TextFile {
+- content: string
++/ Content: string
++/ ListName: string {readOnly}
++ TextFile(name: string, content: string)
+}
+
+class Folder{
+- files: HashSet<File>
++/ ListName: string {readOnly}
++ Folder(name: string)
++ GetFile(name: string): File
++ CreateTextFile(name: string): TextFile
++ CreateFolder(name: string): Folder
++ PrintList(): string
++ PrintTree(indent: int): string
+}
+
+class FileSystemException {
++ FileSystemException(message: string)
+}
+
+File <|-- TextFile
+File <|-- Folder
+FileSystem *--  "1..*" File
+Exception <|-- FileSystemException
+Folder *-- "*" File
+
+@enduml

@@ -1,0 +1,12 @@
+﻿@startuml
+skinparam classAttributeIconSize 0
+abstract class Person {
++ Name : string
++ WelcomeMessage : string
+}
+class Student {
+- StudentNumber : int   
+}
+
+Person <|-- Student
+@enduml

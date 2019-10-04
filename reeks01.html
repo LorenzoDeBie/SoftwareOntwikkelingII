@@ -1,0 +1,285 @@
+<html>
+  <head>
+    <title>Reeks 01: Inleiding C#, OOP in C#, UML, Unit Testing, WPF</title>
+    <link rel="stylesheet" href="uforaTiwiStijl.css"/>
+  </head>
+  <body>
+    <h1>Reeks 01: Inleiding C#, OOP in C#, UML, Unit Testing, WPF</h1>
+
+    <h2>Korte introductie C#</h2>
+    <p>
+      Je zal merken dat C# veel gelijkenis vertoont met Java. Beide talen zijn <a href="http://en.wikipedia.org/wiki/Strong_and_weak_typing" target="_blank">strongly typed</a>, class-based object-oriented 
+      en maken gebruik van een intermediaire code (bytecode in java, CIL in .NET) die door een runtime ge&iuml;nterpreteerd worden. Maar ook de syntax van beide talen is heel gelijkaardig.
+    </p>
+    <p>
+      Toch bestaan er ook heel wat verschillen tussen beide talen. Enkele van deze verschillen zul je in dit labo al tegenkomen. 
+      Om te programmeren in C# maak je bovendien van een andere Integrated Development Environment (IDE) gebruik, meer bepaald Visual Studio.
+      Visual Studio heeft als voordeel dat het een enorm goede debugger heeft (je kan heel gemakkelijk <code>breakpoints</code> toevoegen
+      en de huidige toestand van je programma inspecteren), en je kan verschillende projecten bundelen in een solution. 
+      Bovendien kan je eenvoudig je code exporteren naar een bibliotheek, <code>assembly</code> genaamd, die je dan in andere projecten kunt toevoegen.
+    </p>
+    <p>In de module LABO vind je <b>introductie_C_.pdf</b> - deze bevat een korte samenvatting van C#.</p>
+    <p>
+      Tijdens deze labo's leer je ook gebruik maken van de <b>MSDN library</b>. Deze is lokaal ge&iuml;nstalleerd op de labotoestellen (maar je kan ze ook online raadplegen). Tijdens testen kan je  de <b>lokale MSDN library</b> gebruiken.
+      <br>Een goed punt om te starten zijn de <a href="https://docs.microsoft.com/en-us/dotnet/csharp/" target="_blank">C# Guide</a> en de <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/" target="_blank">C# Programming Guide</a> (zoek deze op in de <b>lokale MSDN library</b> die ook tijdens testen beschikbaar is).
+    </p>
+    <h2>1. Eerste solution / eerste project / eerste klasse</h2>
+    <p>
+      Alle opgaven van dit labo worden in &eacute;&eacute;n solution gemaakt.
+     <ul>
+       <li>Maak een nieuwe solution aan in Visual Studio en neem als startproject een <i>Console Application (.NET Framework)</i> in <b>Visual C#</b>. 
+           <br>De klasse <code>Program.cs</code> wordt aangemaakt en deze bevat het hoofdprogramma <code>static void Main(string[] args)</code>.
+       <li>Voeg een eerste eenvoudige klasse <code>Person</code> toe. Deze klasse stelt een persoon voor en heeft:
+      <ul>
+    
+	<li>een <b>attribute</b> (<code>string name</code>). Voorzie ook de <b>readonly property</b> <code>Name</code>.</li>
+	<li>een <b>constructor</b> met 1 parameter: de naam van de persoon.</li>
+	<li>een <b>readonly property</b> (<code>string WelcomeMessage</code>). Deze geeft een string terug van de vorm 'Hello &lt;Name&gt;'.</li>
+      </ul>
+      <li>Gebruik deze eenvoudige klasse in het hoofdprogramma. Voorzie het volgende:
+      <ul>
+	<li>Vraag via de console de naam van de gebruiker en maak een object aan van de klasse <code>Person</code>.</li>
+	<li>Schrijf de output van <code>WelcomeMessage</code> naar het scherm.</li>
+      </ul>
+     </ul>
+    </p>
+
+    <h2>2. Overerving en abstracte klassen</h2>
+    <p>Voeg de klasse <code>Student</code> toe aan je project. Een student is een persoon die naast een naam ook een studentennummer heeft (geheel getal). Implementeer de volgende zaken:
+      <ul>
+	<li>De naam en het inschrijvingsnummer worden via de constructor ingesteld.</li>
+	<li>De property <code>WelcomeMessage</code> geeft nu een string terug van de vorm 'Hello &lt;Name&gt;, your student number is &lt;Nr&gt;'.</li>
+      </ul>
+      Test deze klasse uit in je hoofdprogramma. Welke string krijg je terug in onderstaand codefragment? Kan je dit verklaren?
+      <pre>
+  Person p = new Student("John Doe",20180189);
+  string output = p.WelcomeMessage;
+      </pre>
+    </p>
+    <p>In Java kan je via <code>instanceof</code> nagaan of een object van een bepaald type is. Kan je hiervoor een variant vinden in C#? En hoe kan je de naam van de klasse opvragen?</p>
+
+    <p>Maak nu van de klasse <code>Person</code> een abstracte klasse. Moet je veel zaken wijzigen in je code?</p>
+
+    <b>Hint:</b> bij overerving en abstracte klassen zijn er enkele belangrijke verschillen met Java! Zoek in de (lokale) MSDN library de betekenis op van volgende modifiers:
+    <code>virtual</code>, <code>abstract</code>, <code>override</code> en <code>new</code>. Test dit grondig uit in je code!
+
+    <h2>3. UML</h2>
+<p>
+Een goed ontwerp start met het maken van een <b>UML</b>-diagramma. 
+
+<br>Je kan een UML laten genereren door gebruik te maken van <a href='http://plantuml.com/'>PlantUML</a>. Handig is de <a href="https://www.planttext.com/">online PlantUML-editor</a>.
+<br><b>Tip</b>: Geen icons gebruiken met:  <code>skinparam classAttributeIconSize 0</code>
+<br>De meeste IDEs hebben ook een plugin/extensie die plantUML ondersteunt. Voor <b>VS Code</b> voeg je de  extentie <img src="images/PlantUML.png" alt=PlantUML> toe, en installer je de <a href="https://graphviz.gitlab.io/download/">graphviz binary</a>.
+
+<p><b>Opdracht:</b> Maak een eenvoudig UML-diagramma van de eerste oefening met PlantUML
+</p>
+
+    <h2>4. Access Modifiers</h2>
+    <p>
+      In een goed ontwerp is het belangrijk om de verschillende access modifiers (<code>private, protected, public,</code> ...) correct te gebruiken.
+      Het is wel zo dat deze modifiers in verschillende programmeertalen een verschillende mening kunnen hebben. Onderstaande figuur
+      toont een belangrijk verschil tussen oudere programmeertalen zoals SmallTalk en recentere talen zoals Java.
+    </p>
+    <p><img src="images/private_kl.png" alt="private modifier"/><br><i>Bron: Concepts, Techniques, and Models of Computer Programming, by Peter Van Roy and Seif Haridi</i></p>
+    <p>
+      Experimenteer met de access modifiers en ga na wat de betekenis is van <code>private</code> en <code>protected</code> in C#.
+      Stel dit schematisch voor zoals in bovenstaande figuur.
+      Merk je een verschil met Java? In C# bestaat er bovendien nog een vierde access modifier die betrekking heeft op de <code>assembly</code>.
+      Zoek de naam van deze modifier op en experimenteer er mee binnen je project.
+    </p>
+
+    <h2>5. Unit Testing</h2>
+    <p>
+<table>
+<tr><td>In Visual C# kan je eenvoudig <a href="https://docs.microsoft.com/en-us/visualstudio/test/getting-started-with-unit-testing?view=vs-2019" target="_blank">Unit Testen</a> toevoegen, net zoals je in Java gebruik kon maken van JUnit. 
+<br>Voeg een nieuw project toe (<b>Add project</b>) aan je solution van het type <i>Unit Test Project <b>(.NET Framework)</b></i>.
+<br>
+    Om de code van een ander project te testen moet je een referentie (<b>Add reference</b>) toevoegen naar dat project. Je kan enkel <b>public</b> methodes/properties gebruiken (<b>internal</b> lukt dus niet).
+</td>
+<td width=5%></td>
+<td><img src="images/addReference.png" alt="add Reference"/>
+</td></tr>
+</table>
+Dit project bevat alvast een testklasse <code>UnitTest1.cs</code> - bekijk de code die gegeven is. 
+
+<br>Een testklasse gebruikt het attribuut <code>TestClass</code> (boven de declaratie). Een testmethode gebruikt het attribuut <code>TestMethod</code>.
+Je kan verschillende testmethodes groeperen in 1 testklasse.</p>
+
+<p>Om strings te vergelijken kan je gebruik maken van <code>Assert.AreEqual(string,string)</code>. Schrijf twee testen voor je eerste project. Hoe kan je een logische methode testen?
+
+<br> Om je programma te testen klik je bovenaan op <b>Test - Run - All Tests</b> (of gebruik je de shortcut <i>CTRL+R / A</i> ).
+
+<p>Bij de volgende oefening zal je ook  moeten controleren of bepaalde code een <i>exceptie</i> opwerpt. Gebruik hiervoor het attribuut <code>ExpectedException</code>:
+    <pre>
+   [TestMethod]
+   [ExpectedException(typeof(FormatException))]
+   public void TestException()
+   {
+       // Code die exceptie moet opgooien van het type FormatException.
+   } </pre>
+   
+</p>
+
+<h2>6. FileSystem</h2>
+
+<p>
+  In deze oefening maken we een eenvoudig bestandssysteem. Voeg een derde project <b>FileSystem</b> (type <i>Console Application (.NET Framework)</i>) toe aan je solution.  
+  Het  <a href="code/FileSystemTest.txt?type=text"  target="_blank"> hoofdprogramma</a> van de klasse is gegeven. Gebruik dit hoofdprogramma om je code te controleren (eventueel kan je voorlopig delen in commentaar plaatsen). Maak de folder <b>Model</b>, en voeg de eerste klasse <b>FileSystem</b> toe. Alle nieuwe klassen worden in de folder <b>Model</b> toegevoegd.
+
+</p>
+<p>De output die je (uiteindelijk) zou moeten genereren vind je <a href="code/output.txt?type=text"  target="_blank">hier</a>.
+</p>
+<p>Lees eerst de opgave volledig door. Maak eerst een UML-diagram op papier of in PlantUML (voor je begint met de implementatie). Maak gebruik van de correcte UML-syntax zoals beschreven in hoofdstuk 1 van het handboek.</p>
+
+<p>
+  Er zijn 2 soorten bestanden: tekstbestanden (<code>TextFile</code>) en mappen (<code>Folder</code>).
+  Een map kan bestanden (submappen of tekstbestanden) bevatten. Op die manier ontstaat er een boomstructuur met bovenaan de wortelmap (root).
+</p>
+<h3>Belangrijke opmerkingen</h3>
+<p>
+  <ul>
+    <li> Hou er rekening mee dat er eventueel later nieuwe types bestanden bij kunnen komen, zoals bv. symbolische links.</li>
+    <li> Let op stijl en leesbaarheid. Vermijd codeduplicatie! Maak waar nodig hulpmethodes.</li>
+    <li> Maak gebruik van de <a href="https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/naming-guidelines" target="_blank">C# Naming Guidelines</a>.
+  </ul>
+</p>
+
+Hieronder de beschrijving van de klasse die je uitwerkt in de folder <b>Model</b>:
+
+<h4>De klasse FileSystemException</h4>
+<p>Deze klasse erft van <code>Exception</code>. Geef aan de constructor de reden van de fout mee (<code>string</code>).</p>
+
+<h4>De klasse File</h4>
+<p>
+  Dit is de basisklasse voor een bestand (map, tekstbestand,...). Welk soort klasse gebruik je hiervoor? 
+</p>
+
+<p>
+  Implementeer volgende zaken:
+  <ul>
+    <li>De constructor krijgt de naam(<code>string</code>) mee als parameter. 
+      Indien de gegeven bestandsnaam <code>null</code> is of een schuine streep ('/') bevat, werp je een <code>FileSystemException</code> op.
+    </li>
+    <li>De property <code>Parent</code> van het type <code>Folder</code> stelt de ouder in en geeft de ouder weer.</li>
+    <li>Voorzie de <b>readonly</b> properties <code>Name</code> en <code>IsRoot</code>. Indien de ouder <code>null</code> is, is dit een wortel (root).
+    </li>
+    <li>De  <b>readonly</b> eigenschap <code>PathName</code> geeft de naam van het bestand, voorafgegaan door de namen van de oudermappen 
+      (te beginnen bij de wortel), gescheiden door schuine strepen ('/').</li>
+    <li>De  <b>readonly</b> eigenschap <code>ListName</code> is een abstracte property zonder implementatie.</li>
+  </ul>
+</p>	
+
+<h4>De klasse TextFile</h4>
+<p>
+  Een tekstbestand bevat een tekst (<code>string</code>). Voorzie de volgende zaken:
+  <ul>
+    <li>Bestandsnaam en tekstinhoud worden doorgegeven via de constructor.</li>
+    <li>Voor de tekst voorzie je een <b>publieke</b> property.</li>
+    <li>De (overschreven) eigenschap <code>ListName</code> geeft de naam van het tekstbestand terug. </li>
+  </ul>
+</p>
+
+<h4>De klasse Folder</h4>
+
+<p>
+  Bevat een <code>HashSet</code> van bestanden.
+  <ul>
+    <li>Voorzie een constructor die de naam meekrijgt (maakt een lege map).</li>
+    <li>
+      De methode <code>GetFile(name)</code> geeft het bestand met gegeven naam terug.
+      Als deze map geen bestand met de gegeven naam heeft, wordt er <code>null</code> teruggegeven. 
+      Indien nodig mag je alle bestanden overlopen.
+    <br><b>Extra:</b> Gebruik een indexer om een bestand op te halen met de opgegeven naam.
+    </li>
+    <li>	
+      De methode <code>CreateTextFile(name)</code> maakt een (leeg) tekstbestand met gegeven naam, voegt dit toe aan de map, en geeft dit terug.
+      Indien de gegeven <code>name</code> leeg is of de naam al bestaat in deze folder, werp je een <code>FileSystemException</code> op.
+    </li>
+    <li>De methode <code>CreateFolder(name)</code> doet hetzelfde als de vorige methode, maar dan voor een (lege) submap.</li>
+    <li>De eigenschap <code>ListName</code> geeft de naam terug, gevolgd door een schuine streep ('/'). </li>
+    <li>De methode <code>PrintList()</code> schrijft een lijst van bestanden in deze map uit (zoals 'ls' of 'dir). 
+      De namen van submappen worden gevolgd door een schuine streep ('/').
+    </li>
+    <li>De methode <code>PrintTree(indent)</code> schrijft recursief alle bestanden in de map uit, met twee spaties indentatie per niveau.
+      Indien nodig mag je ook in <code>File</code> deze methode implementeren. <b>Hint:</b> <code>virtual</code>.
+    </li>
+  </ul>
+</p>
+
+
+<h4>De klasse FileSystem</h4>
+<p>
+  Deze klasse bevat een wortel (en indirect de bijhorende boom), en een huidige map (current directory).
+  De klasse voorziet in de publieke interface naar de gebruiker toe, en handelt alle opgeworpen fouten af met een gepaste melding.
+</p>
+
+<p>
+  De default-constructor maakt de wortelmap aan met een lege naam en laat de huidige map wijzen naar de wortelmap. 
+  De publieke methodes imiteren bekende shell-commando's:
+  <ul>
+    <li>Het commando <code>cd(path)</code> wijzigt de huidige map naar het opgegeven pad (<code>string</code>). Dit pad is ofwel "/", ofwel "..", 
+      ofwel de naam van een submap van de huidige map (m.a.w. het pad bevat geen slashes). 
+      Indien het gegeven pad ongeldig is (onbestaand, geen map, ...) toon je een foutboodschap (maar gaat het programma verder).</li>
+    <li>Het commando <code>pwd()</code> (print working directory) schrijft de padnaam van de huidige map uit.</li>
+    <li>Het <code>dir()</code> commando schrijft een lijst uit van alle bestanden in de huidige map.</li>
+    <li>Het <code>tree()</code> commando schrijft de bestandsboom vanuit de huidige map.</li>
+    <li>Het <code>mktext(naam)</code> commando maakt een leeg tekstbestand aan met gegeven naam. De fout die mogelijks opgeworpen wordt vang je op met een gepaste melding. </li>
+    <li>Het <code>mkdir(naam)</code> doet hetzelfde als het vorige commando, maar dan voor een submap.</li>
+  </ul>
+</p>
+
+<h3>Unit Testing</h2>
+<p>Voeg een Unit Test Project toe (of gebruik het project uit opgave 4). Voorzie in de testklasse een aantal zinvolle Unit Tests voor het FileSystem. Zorg er uiteraard voor dat geen enkele test faalt.</p>
+
+<h3>Uitbreidingen en bedenkingen</h3>
+<ul>
+  <li>Is het zinvol om de <code>HashSet</code> te vervangen door een <code>Dictionary</code>? Waarom wel/niet?</li>
+  <li>Momenteel heeft elke bestand een referentie naar zijn ouder, terwijl elke ouder een lijst heeft van zijn kinderen. Is deze dubbele referentie zinvol en kan je deze eventueel wegwerken? Waarom wel/niet?</li>
+  <li>Voeg een indexer toe aan de klasse <code>Folder</code> met dezelfde functionaliteit als de methode <code>GetFile(name)</code>. 
+</ul>
+
+
+<h2 id="deel2">7. ImageViewer</h2>
+<p> 
+  In deze oefening maken we een eenvoudig programma om afbeeldingen te bekijken en te roteren. 
+  Voor de uitwerking van deze oefening maken we gebruik van Windows Presentation Framework (WPF).
+  Voeg een nieuw project (type <i>WPF Application</i>) toe aan je solution. De functionaliteit van het programma is hieronder beschreven.
+</p>
+<p> <table>
+<tr><td><img src="images/reeks1_mockup.png" alt="ImageViewer"/><br/><i>Mockup van de ImageViewer</i></p></td>
+<td>Het hoofdvenster bestaat uit 3 delen:
+  <ul>
+    <li>In het bovenste gedeelte van het venster kan de gebruiker een afbeelding selecteren.</li>
+    <p><li>Het middelste en grootste gedeelte van het venster wordt gebruikt om de afbeelding weer te geven (zie <a href="https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-4.0/ms746717(v=vs.100)" target="_blank"> Image - BitmapImage</a>) - zoek deze informatie ook op in de lokale Help.</li>
+    <p><li>Het onderste deel van het venster bestaat uit 2 knoppen om de afbeelding respectievelijk in tegenwijzerzin (naar links) of in wijzerzin (naar rechts) te roteren.</li>
+  </ul>
+</td>
+</table>
+<p>
+  Voor het reageren op knoppen zul je enkele <code>EventHandlers</code> moeten toevoegen aan <code>MainWindow.xaml</code>.
+  Dit kan ofwel automatisch via de <a href="http://msdn.microsoft.com/en-us/library/bb531289(v=vs.100).aspx" target="_blank"> designer</a> of manueel via <a href="https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/xaml-overview-wpf#events-and-xaml-code-behind" target="_blank"> XAML code</a>.
+  De methodes zelf implementeer je in de de code-behind file, <code>MainWindow.xaml.cs</code>. 
+<br>Het is mogelijk en handig om via C# code <a href="https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/how-to-add-an-event-handler-using-code" target="_blank">nieuwe controls toe te voegen en bijhorende event handlers</a>.
+</p>
+<p><ul>
+<li>De knoppen <i>Draai Links</i> en <i>Draai Rechts</i> draaien de afbeelding over 90<sup>o</sup>. Zie <a href="https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/how-to-rotate-an-object" target="_blank">How to : Rotate an Object</a>. Zorg dat de afbeelding rond zijn middelpunt draait (anders lijkt de gedraaide afbeelding te verdwijnen).
+<li>Bij het klikken op de <i>Bladeren...</i> knop opent een <i>'FileDialog'</i> venster waarin de gebruiker een afbeelding op zijn toestel kan selecteren, zoals te zien is in onderstaande figuur.
+  Zoek op hoe je (zoals in de figuur) een gepaste bestandsfilter kunt instellen zodat enkel afbeeldingen geselecteerd kunnen worden met een gekende extensie (.jpg, .png, .gif).
+</p>
+<p><img src="images/browse.png" alt="FileDialog"/><br/><i>Bladeren naar een afbeelding</i></p>
+</ul>
+
+<p><b>Opmerkingen:</b></p>
+<ul>
+  <li>Zorg er voor dat de twee knoppen voor het draaien van de afbeelding niet ingedrukt kunnen worden als er nog geen afbeelding geladen is.</li>
+  <li>Bij het openen van een nieuwe afbeelding reset je best de huidige rotatie (zodat de nieuwe figuur niet meteen gedraaid wordt).</li>
+</ul>
+<p><b>Optionele uitbreidingen:</b>
+<ul>
+ <!-- <li>Zorg er voor dat bij het openen van de afbeelding de <i>'aspect ratio'</i> bewaard blijft.</li>-->
+  <li>Zorg er voor dat het programma mooi schaalt bij aanpassen van de grootte van het venster.</li>
+  <li>Voorzie een extra <i>Save</i> knop die de gebruiker toelaat om de gedraaide afbeelding te bewaren op de harde schijf.</li>
+</ul>
+</p>
+</body>
+</html>

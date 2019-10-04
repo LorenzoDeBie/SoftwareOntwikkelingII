@@ -1,0 +1,14 @@
+Lege naam niet toegelaten
+tekst1
+map1/
+Map bevat al bestand met naam 'tekst2'
+tekst2
+Ongeldig pad
+map1/
+  map2/
+    tekst2
+/
+  tekst1
+  map1/
+    map2/
+      tekst2

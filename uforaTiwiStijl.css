@@ -1,0 +1,24 @@
+body,td{
+	font-family: verdana, sans-serif;
+	font-size: 12px;
+}
+
+pre{
+	width: 80%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgba(0,0,0,0.95);
+        background-color:rgba(192,192,192,0.3);
+	border-radius: 5px;
+	padding: 10px;
+	font-family: monospace;	
+}
+
+samp{
+	font-family: monospace;
+}
+
+/*
+	box-sizing: border-box;
+	font-size: 1em;
+*/

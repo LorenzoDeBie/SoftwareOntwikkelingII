@@ -1,0 +1,49 @@
+﻿@startuml
+
+skinparam classAttributeIconSize 0
+
+class PlainText {
+    + GecodeerdeString(codeString : string) : string
+}
+
+interface ICodeerbareString {
+    + GecodeerdeString(codeString : string) : string
+}
+
+abstract Class Codering {
+    # Codeerbarestring : ICodeerbareString
+    + GecodeerdeString(codeString : string) : string
+}
+together {
+class Cijfer {
+    + GecodeerdeString(codeString : string) : string
+}
+note bottom : Decorator
+
+class Wissel {
+    + GecodeerdeString(codeString : string) : string
+}
+note bottom : Decorator
+
+class Blok {
+   + GecodeerdeString(codeString : string) : string
+}
+note bottom : Decorator
+}
+ICodeerbareString <|.. PlainText
+ICodeerbareString <|.. Codering
+
+Codering <|-- Cijfer
+Codering <|-- Blok
+Codering <|-- Wissel
+
+Codering o-- ICodeerbareString
+
+note top of PlainText : Component
+
+note right of Codering::GecodeerdeString
+    Roept GecodeerdeString() van zijn Component op 
+end note
+
+
+@enduml

@@ -1,0 +1,43 @@
+﻿<Window x:Class="CodeerGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CodeerGUI"
+        mc:Ignorable="d"
+        Title="Codeer Tekst" Height="300" Width="300">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="15*" />
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="Invoertekst" BorderThickness="3" BorderBrush="Black">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right">Tekst:</Label>
+                <TextBox x:Name="txtInput" Grid.Column="1" VerticalAlignment="Center" Margin="5" BorderBrush="Black" BorderThickness="3"></TextBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Codering Toevoegen" BorderBrush="Black" BorderThickness="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <RadioButton x:Name="radioBlok" GroupName="Codering" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">Blok</RadioButton>
+                <RadioButton x:Name="radioWissel" GroupName="Codering" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">Wissel</RadioButton>
+                <RadioButton x:Name="radioCijfer" GroupName="Codering" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">Cijfer</RadioButton>
+                <Button Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="5" Click="ButtonBase_OnClick">OK</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="2" Header="Resultaat" BorderBrush="Black" BorderThickness="3">
+            <TextBox x:Name="txtOutput" Margin="5" IsEnabled="False"></TextBox>
+        </GroupBox>
+    </Grid>
+</Window>

@@ -1,0 +1,225 @@
+<!doctype html>
+
+<html lang="nl">
+  <head>
+    <title>Reeks 02: Structural Patterns</title>
+    <style>
+      .codeblock {display:block; border:1px dotted black;}
+      .blokcodering {border: 1px solid black; width:180px;}
+      .blokcodering td {border: 1px solid black; width: 20px; height: 20px;}
+      pre {background-color: #333333; color: white; border:1px solid black; padding: 4px; margin-top: 20px; margin-bottom: 20px; font-size: 13px;}
+    </style>
+  </head>
+  <body>
+    
+    <h1>Reeks 02: Structural Patterns</h1>
+
+    <p>
+      Tijdens dit labo maken we gebruik van pair programming. Bij pair programming werk je per 2 aan &eacute;&eacute;n toestel, waarbij elke persoon een andere rol heeft.
+      E&eacute;n persoon is de uitvoerende programmeur (engels: driver) die de code schrijft. De andere persoon heeft een controlerende en vooruitdenkende taak (engels: observer), enerzijds ziet hij er op toe dat de programmeur geen fouten schrijft, anderzijds denkt hij al na over de toekomstige stappen.
+    </p>
+
+    <p>
+      Uiteraard is dit enkel van toepassing bij het implementeren van de code. Het ontwerp wordt door beide personen samen gemaakt. Bij het implementeren wissel je bovendien regelmatig van rol (bv. om de 10 minuten).
+    </p>
+
+
+    <h2>1. Coderingen</h2>
+
+    <p>
+      Het doel van deze opgave is om drie werkende programma's te ontwerpen gebruikmakend van &eacute;&eacute;n of meerdere design patterns en OO-ontwerpprincipes. 
+    </p>
+    <p>
+      In de drie programma's kan de gebruiker een stuk tekst coderen met 3 verschillende coderingen. Bovendien kan de gebruiker coderingen combineren in een volgorde die hij zelf kiest.
+      <br>De drie programma's worden uitgewerkt in aparte projecten (type Console Application en/of WPF application) binnen &eacute;&eacute;n solution. De gemeenschappelijke code (o.a. de coderingen) werk je uit in een <b>Class Library</b> project. Je oplossing moet voldoen aan een goede programmeerstijl, de OO-ontwerpprincipes en makkelijk uitbreidbaar zijn met nieuwe coderingen.
+    </p>
+
+    <h3>Opgave</h3>
+    Lees eerst de opgave volledig door, zonder code te schrijven. 
+    <ol>
+      <li>
+	Welk(e) design pattern(s) is/zijn hier het meest aangewezen? Toon aan de hand van een klassendiagram aan hoe je het/de pattern(s) implementeerde. Duid hierin aan welke klassen, methodes, ... uit het programma corresponderen met de verschillende rollen in het klassendiagram van het pattern.<br/>
+      </li>
+      <li><b>Belangrijk:</b> Begin pas met de implementatie nadat je ontwerp volledig afgewerkt is! De UML van je ontwerp zal je bovendien moeten indienen (zie hieronder).
+      </li>
+    </ol>
+
+
+    <h3>Coderingen</h3>
+    <p>
+      De implementatie van de coderingen werk je uit in een <b>Class Library</b> project. Voorzie drie coderingen:
+    </p>
+
+    <ul>
+      <li>
+	<b>wissel</b>: 
+	Deze codering verwisselt de tekens in de zin: het eerste karakter wordt gewisseld met het tweede, het derde met het vierde, ...
+
+  <pre><code>Dit is een oefening op Design Patterns
+  ->  iD tsie neo feneni gpoD segi naPttresn</code></pre>
+
+      </li>
+      <li>
+	<b>cijfer</b>: 
+	In de codering wordt elk teken vervangen door zijn ASCII-code.
+
+   <pre><code>Dit is een oefening op Design Patterns
+  ->  68105116321051153210110111032111101102101110105110103321111123268101115105103110328097116116101114110115</code></pre>
+
+      </li>
+      <li>
+	<b>blok</b>: 
+	Deze codering bestaat uit verschillende stappen en maakt gebruik van een vierkant letterrooster:
+	<br/><br/>
+	<table class="blokcodering">
+	  <tr><td>a</td><td>z</td><td>e</td><td>r</td><td>t</td><td>1</td></tr>
+	  <tr><td>2</td><td>y</td><td>u</td><td>i</td><td>o</td><td>p</td></tr>
+	  <tr><td>q</td><td>3</td><td>s</td><td>4</td><td>8</td><td>d</td></tr>
+	  <tr><td>f</td><td>g</td><td>h</td><td>n</td><td>j</td><td>k</td></tr>
+	  <tr><td>9</td><td>7</td><td>l</td><td>m</td><td>6</td><td>w</td></tr>
+	  <tr><td>5</td><td>0</td><td>x</td><td>c</td><td>v</td><td>b</td></tr>
+	</table>
+	<ol>
+	  <li>Vervang alle hoofdletters in de zin door kleine letters en alle vreemde lettertekens en spaties door het cijfer 0. De string die je als resultaat krijgt, bevat dus enkel kleine letters en cijfers.</li>
+	  <li>Verdeel deze string in groepjes van 2 letters. Is er een oneven aantal letters, voeg dan een nul toe aan het einde.</li>
+	  <li>Vertaal elk groepje van twee tekens op de volgende manier:
+	    <ol>
+	      <li>Zijn beide tekens gelijk, dan blijven ze onvertaald. Dus: 'aa' blijft 'aa'.</li>
+	      <li>Anders zoek je de tekens op in het rooster. Staan ze op dezelfde rij of kolom, wissel ze dan om. Dus '3s' wordt 's3' en 'hx' wordt 'xh'.</li>
+	      <li>In het andere geval bepalen de tekens nu een rechthoekje in het rooster. Vervang het paar nu door de andere twee hoeken van die rechthoek (elk teken vervang je door een teken op dezelfde rij). Dus 'nb' wordt 'kc' en 'rs' wordt 'e4'.</li>
+	    </ol>
+	  </li>
+	</ol>
+
+     <pre><code>Dit is een oefening op Design Patterns
+  ->  4pzvu4xzrhvyahrhni0gpob3seyngc21ttreh4</code></pre>	
+
+      </li>
+    </ul>
+
+    <h3>Drie programma's die codering gebruiken</h3>
+
+    <p>Maak drie projecten, die telkens de <b>Class Library gebruiken</b></p>
+
+    <ul>
+      <li>
+	<p><b>CodeerZin</b></p>
+	<p>Het eerste programma <code>CodeerZin</code> vraagt twee gegevens aan de gebruiker:</p>
+	<ul>
+	  <li>een stukje tekst om te coderen</li>
+	  <li>de gewenste codering(en) in volgorde</li>
+	</ul>
+	<p>Vervolgens schrijft het programma de gecodeerde zin uit.</p>
+	<p>
+	  De standaardcodering is cijfer. Dit betekent dat als de ingegeven codering niet herkend wordt, de cijfer- codering toegepast wordt. 
+	  Het programma kan ook meerdere coderingen na elkaar uitvoeren. Hiervoor moet de gebruiker de gewenste coderingen ingeven gescheiden door een spatie.
+	</p>
+
+        <pre><code>Geef zin: Dit is een oefening op Design Patterns
+Geef coderingen: blok cijfer wissel blok
+5211ap2211tdwz52pazb2211rd3c11tdap97bzrddrbzrdbzbzqctd0311ap11q6ab11abzbpa11bzbz7q953cawwt11twdrbz113c52</code></pre>
+      </li>
+      <li>
+	<p><b>CodeerBestand</b></p>
+	<p>Het tweede programma <code>CodeerBestand</code> heeft als invoer drie strings:</p>
+	<ul>
+	  <li>de naam van het bestand met de te coderen tekst</li>
+	  <li>de naam van het bestand waarin de gecodeerde tekst bewaard moet worden</li>
+	  <li>de gewenste codering(en)</li>
+	</ul>
+
+        <pre><code>Geef bestandsnaam voor invoer: testIn.txt
+Geef bestandsnaam voor uitvoer: testUit.txt
+Geef coderingen: blok wissel blok cijfer wissel</code></pre>
+
+	<p>Dit programma maakt gebruik van dezelfde coderingen als het vorige programma en kan ook meerdere coderingen combineren. Voor het inlezen van een bestand is het eenvoudigst om een <code>StreamReader</code> te gebruiken. Het bestand wordt lijn per lijn gecodeerd.</p>
+      </li>
+      <li>
+	<p><b>CodeerGUI</b></p>
+	<p>
+	  Het derde programma <code>CodeerGUI</code> is gelijkaardig aan het eerste programma, maar maakt gebruik van een eenvoudige (WPF) GUI. 
+	</p>
+	<p>
+	  In de GUI (zie ook de mockup hieronder) kan een gebruiker de te coderen tekst invullen in de bovenste TextBox. Daarna kan de gebruiker verschillende coderingen toevoegen. Telkens een codering toegevoegd wordt, verschijnt het resultaat van de volledige codering in de onderste TextBox. 
+	</p>
+	<p><img src="images/reeks2_mockup.png" alt="GUIMockup"/><br/><i>Mockup van de GUI</i></p>
+      </li>
+    </ul>
+
+
+    <h3>Indienen</h3>
+    <p>
+      Dien het klassendiagram (of de klassendiagrammen) van het eerste puntje van de opgave in via de Minerva Dropbox - Reeks2.
+      Bij het indienen maak je 1 .pdf-bestand per twee studenten. De bestandsnaam bevat de naam van beide studenten, vb <code>reeks02_Piet_Pieters_An_Jansens.pdf</code>. Dit document bevat een afdrukbare versie van het klassediagram en bevat ook de naam van de beide studenten (moet mee afgedrukt worden). Eventueel kan je ook extra uitleg toevoegen op de .pdf
+    <p>
+      Per groep (2 personen) hoef je maar 1 keer in te dienen. Deadline voor indienen is <b>zondag 6 oktober 23:59</b>.
+    </p>
+    Voor het tekenen van UML diagrammen kan je gebruikmaken van Microsoft Visio of Visual Paradigm. Andere programma's mogen uiteraard ook gebruikt worden, maar volg wel de correcte UML notatie zoals beschreven in het handboek. De UML laten genereren door Visual Studio is echter <b>niet</b> toegelaten!
+    </p>
+
+
+    <h2  id="deel2">2. Bestandsbeheer</h2>
+    <p>
+Ontwerp, implementeer en test een eenvoudig systeem voor het weergeven van bestanden. Gebuik daarbij &eacute;&eacute;n of meerdere design patterns en OO-ontwerpprincipes.
+</p>
+<p>Het bestandssysteem beperkt zich tot bestanden in &eacute;&eacute;n map (bv. <code>C:\test\</code>). Plaats in die map een aantal tekstbestanden (vb. <code>file.txt</code> en <code><b>.</b>secretfile.txt</code>) en geef een inhoud aan de tekstbestanden.
+</p>
+
+
+<p>Alle klassen die je nodig hebt voor het bestandsbeheer maak je in een aparte  <b>Class Library </b>. In een <b>Console Applicatie</b>  test je de werking uit (zie kader onderaan). Het systeem vraagt eerst de gebruikersnaam. Daarna kan de gebruiker de inhoud opvragen van verschillende (fysieke) bestanden die zich in &eacute;&eacute;n map (bv. <code>C:\test\</code>) bevinden (bladeren naar andere map wordt niet voorzien).
+</p>
+
+
+    <h3>Het systeem moet voldoen aan de volgende vereisten:</h3>
+    <ul>
+      <li>
+	Binnen 1 sessie van een gebruiker wordt elk fysiek bestand maximum 1 keer ingeladen. Het inladen gebeurt pas wanneer de inhoud weergegeven moet worden.
+	De gebruiker kan uiteraard wel meerdere malen de inhoud van een bestand opvragen.
+      </li>
+      <li>
+	Voor bestanden die beginnen met een punt (bv <code><b>.</b>secretfile.txt</code>) kan enkel de administrator de inhoud opvragen.
+      </li>
+    </ul>
+    <p>
+      Voorzie 2 gebruikers: een gewone gebruiker (gebruikersnaam <i>user</i>) en een administrator (gebruikersnaam <i>admin</i>). De gebruiker hoeft geen wachtwoord in te geven. Je hoeft zeker geen volledige authenticatiemodule te implementeren, het volstaat als je de twee gebruikers bijhoudt in een eenvoudige collectie.
+    </p>
+    <p>Hieronder vind je een mogelijke output van het programma:</p>
+
+    <pre><code>Enter username:
+        user
+
+        Enter file name or STOP to exit
+        file.txt
+
+        <span style="color:green">[INF]</span> Loading file file.txt from disk...
+
+        ====== file.txt ======
+        Contents of file.txt
+        ============================
+
+        Enter file name or STOP to exit
+        file.txt
+
+        ====== file.txt ======
+        Contents of file.txt
+        ============================
+
+        Enter file name or STOP to exit
+        .secretfile.txt
+
+        <span style="color:red">[ERR]</span> User 'user' has no access to this file.
+
+        Enter file name or STOP to exit
+        STOP</code></pre>
+
+    <p>
+      Merk in het bovenstaande voorbeeld op dat het bestand <code>file.txt</code> maar &eacute;&eacute;n keer ingeladen wordt van de harde schijf, terwijl de gebruiker de inhoud twee maal opvraagt. Het bestand <code>.secretfile.txt</code> wordt nooit ingeladen aangezien de huidige gebruiker geen administrator is.
+    </p>
+    <h3>Opgave</h3>
+    <ol>
+      <li>Welk(e) design pattern(s) is/zijn hier het meest aangewezen? Maak eerst een ontwerp op papier (UML).</li>
+      <li>Implementeer de volledig opgave in een C#-project.</li>
+      <li>Voeg een derde project toe voor een een aantal unit tests om je code te testen.</li>
+    </ol>
+  </body>
+</html>
