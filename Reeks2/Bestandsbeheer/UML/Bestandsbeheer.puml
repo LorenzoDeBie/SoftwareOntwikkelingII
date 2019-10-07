@@ -1,22 +1,25 @@
 ﻿@startuml
 
 interface IFile {
-    Name: string
-    GetContent(username : string) : string
+    FileName: string
+    WriteContent() : void
 }
 
 together {
     class File {
-        - _name : string
         - _content : string
-        ~ IsLoaded : bool
-        ~ IsSecret : bool
-        + GetContent(username : string) : string
+        + FileName : string;
+        + File(fileName : string)
+        + WriteContent() : void
     }
     
     class FileProxy {
-        + Name : string
-        + GetContent(username : string) string
+        - _file : File
+        - _username : string
+        + FileName : string
+        + FileProxy(userName : string, fileName : string)
+        + WriteContent() : void
+        - checkAccess() : bool
     }
 }
 
