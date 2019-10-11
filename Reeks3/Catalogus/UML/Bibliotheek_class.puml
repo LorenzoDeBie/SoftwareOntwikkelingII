@@ -1,0 +1,76 @@
+@startuml 22
+skinparam classAttributeIconSize 0
+title Groep 22
+
+interface IBibItem {
+    +ID: string
+    +ouder: IBibItem
+    +VoegToe(bibItem: IBibItem):void
+    +Verwijder(bibItem: IBibItem):void
+    +Zoek(id: string): IBibItem
+    +ZoekTrefwoord(trefwoord: string): ISet<IBibItem>
+    +VerplaatsNaar(bibItem: IBibItem):void
+    +Toon(insprong:int): string
+}
+
+class Boek{
+    +Titel: string
+    +Auteur: string
+    +Uitgeverij: string
+    +Jaartal: int
+    +Toon(insprong:int): string
+    #VoldoetAanTrefwoord(woord: string): bool
+}
+
+class Artikel{
+    +Titel: string
+    +Auteur: string
+    +Toon(insprong:int): string
+    #VoldoetAanTrefwoord(woord: string): bool
+}
+
+class Tijdschrift{
+
+    +Auteur: string
+    +Uitgeverij: string
+    +Jaartal: DateTime
+    +Toon(insprong:int): string
+    #VoldoetAanTrefwoord(woord: string): bool
+}
+
+class Afdeling{
+    +Titel: string
+    +Toon(insprong:int): string
+    #VoldoetAanTrefwoord(woord: string): bool
+}
+
+abstract ABibItem{
+
+    +Id: string
+    +Ouder: IBibItem
+    +Toon(insprong:int): string
+    +VerplaatsNaar(bibItem: IBibItem): void
+    +ZoekTrefWoord(trefwoord: string): ISet<IbibItem>
+    +Zoek(id: string): IBibItem
+    #{abstract}VoldoetAanTrefwoord(woord: string): bool
+}
+note left: Abstracte klasse voor componenten
+
+abstract ABibItemVerzameling{
+    #items: ICollection<IBibItem>
+    #ToonKinderen(insprong: int, stringb: Stringbilder)
+    +Verwijder(bibItem: IBibItem): void
+    +VoegToe(bibItem: IBibItem): void
+    +Zoek(id: string): IBibItem
+    +ZoekTrefWoord(trefwoord: string): ISet<IbibItem>
+}
+note right: Abstracte klasse voor composites
+
+IBibItem <|... ABibItem
+ABibItemVerzameling *--- "*"IBibItem
+ABibItem <|--- ABibItemVerzameling
+ABibItem <|--- Boek
+ABibItem <|--- Artikel
+ABibItemVerzameling <|--- Tijdschrift
+ABibItemVerzameling <|--- Afdeling
+@enduml

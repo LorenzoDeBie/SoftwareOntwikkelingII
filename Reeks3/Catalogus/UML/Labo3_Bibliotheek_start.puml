@@ -1,0 +1,36 @@
+@startuml Groepnr..
+skinparam classAttributeIconSize 0
+title Groep 22
+interface IBibItem {
+    +ID: string
+    +ouder: IBibItem
+    +VoegToe(bibItem: IBibItem):void
+    +Verwijder(bibItem: IBibItem):void
+    +Zoek(id: string): IBibItem
+    +ZoekTrefwoord(trefwoord: string): ISet<IBibItem>
+    +VerplaatsNaar(bibItem: IBibItem):void
+    +Toon(insprong:int): string
+}
+
+class Boek{
+    +Titel: string
+    +Auteur: string
+    +Uitgeverij: string
+    +Jaartal: int
+}
+
+class Artikel{
+    +Titel: string
+    +Auteur: string
+}
+
+class Tijdschrift{    
+    +Auteur: string
+    +Uitgeverij: string
+    +Jaartal: DateTime
+}
+
+class Afdeling{
+    +Titel: string
+}
+@enduml
