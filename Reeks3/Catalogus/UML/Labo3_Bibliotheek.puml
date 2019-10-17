@@ -13,78 +13,79 @@ interface IBibItem {
     +Toon(insprong:int): string
 }
 
-abstract ABibItem{
-    +Id: string
-    +Ouder: IBibItem
-    +VoegToe(bibItem: IBibItem):void
-    +Verwijder(bibItem: IBibItem):void
-    +Zoek(id: string): IBibItem
-    +ZoekTrefWoord(trefwoord: string): ISet<IbibItem>
-    +VerplaatsNaar(bibItem: IBibItem): void
-    +Toon(insprong:int): string
-    #VoldoetAanTrefwoord(woord: string): bool
-}
-note left: Abstracte klasse voor componenten
-
-abstract ABibItemVerzameling{
-    #Items: ICollection<IBibItem>
-    +VoegToe(bibItem: IBibItem): void
-    +Verwijder(bibItem: IBibItem): void
-    +Zoek(id: string): IBibItem
-    +ZoekTrefWoord(trefwoord: string): ISet<IbibItem>
-    #ToonKinderen(insprong: int) : string
-}
-note top: Abstracte klasse voor compositen
-
-note "Componenten" as n1
-note "Compositen" as n2
-Boek..n1
-class Boek{
-    +Titel: string
-    +Auteur: string
-    +Uitgeverij: string
-    +Jaartal: int
-    +Toon(insprong:int): string
-    #VoldoetAanTrefwoord(woord: string): bool
-}
-Artikel..n1
-class Artikel{
-    +Titel: string
-    +Auteur: string
-    +Toon(insprong:int): string
-    #VoldoetAanTrefwoord(woord: string): bool
+together {
+    abstract ABibItem{
+        +Id: string
+        +Ouder: IBibItem
+        +VoegToe(bibItem: IBibItem):void
+        +Verwijder(bibItem: IBibItem):void
+        +Zoek(id: string): IBibItem
+        +ZoekTrefWoord(trefwoord: string): ISet<IbibItem>
+        +VerplaatsNaar(bibItem: IBibItem): void
+        +Toon(insprong:int): string
+        #VoldoetAanTrefwoord(woord: string): bool
+    }
+    note left: Abstracte klasse voor componenten
+    note "Componenten" as n1
+    Boek..n1
+    class Boek{
+        +Titel: string
+        +Auteur: string
+        +Uitgeverij: string
+        +Jaartal: int
+        +Toon(insprong:int): string
+        #VoldoetAanTrefwoord(woord: string): bool
+    }
+    Artikel..n1
+    class Artikel{
+        +Titel: string
+        +Auteur: string
+        +Toon(insprong:int): string
+        #VoldoetAanTrefwoord(woord: string): bool
+    }
 }
 
-
-Tijdschrift...n2
-class Tijdschrift{
-    +Titel: string
-    +Uitgeverij: string
-    +Datum: DateTime
-    +Toon(insprong:int): string
-    +VoegToe(bibItem:IBibItem):void
-    +ZoekTrefWoord(trefwoord:string): ISet<IBibItem>
+together {
+    abstract ABibItemVerzameling{
+        #Items: ICollection<IBibItem>
+        +VoegToe(bibItem: IBibItem): void
+        +Verwijder(bibItem: IBibItem): void
+        +Zoek(id: string): IBibItem
+        +ZoekTrefWoord(trefwoord: string): ISet<IbibItem>
+        #ToonKinderen(insprong: int) : string
+    }
+    note top: Abstracte klasse voor compositen
+    
+    note "Compositen" as n2
+    Tijdschrift...n2
+    class Tijdschrift{
+        +Titel: string
+        +Uitgeverij: string
+        +Datum: DateTime
+        +Toon(insprong:int): string
+        +VoegToe(bibItem:IBibItem):void
+        +ZoekTrefWoord(trefwoord:string): ISet<IBibItem>
+    }
+    together {
+        Afdeling...n2
+        class Afdeling{
+            +Naam: string
+            +Toon(insprong:int): string
+        }
+        
+        
+        class Sorteer{
+            +Compare(x: IBibItem, y: IBibItem): int
+        }
+    }
 }
-Afdeling...n2
-class Afdeling{
-    +Naam: string
-    +Toon(insprong:int): string
-}
 
-
-class Sorteer{
-    +Compare(x: IBibItem, y: IBibItem): int
-    -Compare(x: Afdeling, y: Afdeling): int
-    -Compare(x: Boek, y: Boek): int
-    -Compare(x: Tijdschrift, y: Tijdschrift): int
-}
-
-IBibItem <|.. ABibItem
-ABibItemVerzameling *-- "*"IBibItem::Items
-ABibItem <|-- ABibItemVerzameling
+IBibItem <|.down. ABibItem
+ABibItemVerzameling::Items o-up- "*"IBibItem
+ABibItem <|-right- ABibItemVerzameling
 ABibItem <|-- Boek
 ABibItem <|-- Artikel
 ABibItemVerzameling <|-- Tijdschrift
 ABibItemVerzameling <|-- Afdeling
-Sorteer <.. Afdeling::Items
+Sorteer <.up. Afdeling
 @enduml

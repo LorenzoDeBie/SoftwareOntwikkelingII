@@ -51,6 +51,7 @@
   <ItemGroup>
     <Content Include="UML\Bibliotheek_class.puml" />
     <Content Include="UML\Groepnr_22.png" />
+    <Content Include="UML\Groepnr_22_V2.png" />
     <Content Include="UML\Labo3_Bibliotheek.puml" />
     <Content Include="UML\Labo3_Bibliotheek_start.puml" />
   </ItemGroup>
