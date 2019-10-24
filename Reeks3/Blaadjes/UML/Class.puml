@@ -1,0 +1,29 @@
+﻿@startuml
+interface IPicture {
+    + Draw()
+}
+
+abstract class APicture {
+    - Image : Image
+    + Draw()
+}
+note right: exintrinsicState computed at runtime
+
+class PictureFactory {
+    - pictures : Dictionairy
+}
+
+together {
+    class Leaf {
+        
+    }
+    class Feather {
+        
+    }
+}
+
+IPicture <|.down. APicture
+IPicture o-left- PictureFactory
+APicture <|-down- Leaf
+APicture <|-down- Feather
+@enduml
