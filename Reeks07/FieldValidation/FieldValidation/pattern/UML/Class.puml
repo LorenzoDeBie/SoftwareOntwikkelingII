@@ -1,0 +1,28 @@
+@startuml
+interface IValidator {
+    + ValidationBehaviour
+    + PerformValidation(s: string): bool
+}
+
+interface IValidationBehaviour {
+    + Validate(s: string): bool
+}
+
+class NumberValidationBehaviour {
+    + Validate(s: string): bool
+}
+
+class EmailValidationBehaviour {
+    + Validate(s: string): bool
+}
+
+class RekeningValidationBehaviour {
+    + Validate(s: string): bool
+}
+
+IValidator::ValidationBehaviour o.right. IValidationBehaviour
+NumberValidationBehaviour -up-|> IValidationBehaviour
+EmailValidationBehaviour -up-|> IValidationBehaviour
+RekeningValidationBehaviour -up-|> IValidationBehaviour
+
+@enduml
