@@ -1,0 +1,76 @@
+@startuml
+title Reeks5
+
+class Gebruiker {
+    + Achternaam: string
+    + GebruikersCode: int
+    + VoorNaam: string
+}
+
+interface IGebruikerslijst {
+    + Gebruikers: Gebruiker[]
+    + PasAan(gebruiker: Gebruiker)
+    + Verwijder(gebruiker: Gebruiker)
+    + VoegToe(gebruiker: Gebruiker)
+}
+
+class GebruikersLijst {
+    + Gebruikers
+    + PasAan(gebruiker: Gebruiker)
+    + Verwijder(gebruiker: Gebruiker)
+    + VoegToe(gebruiker: Gebruiker)
+}
+
+GebruikersLijst .up.|> IGebruikerslijst
+
+GebruikersLijst::Gebruikers o-right- Gebruiker
+
+class User {
+    + FirstName: string
+    + ID: int
+    + LastName: string
+}
+
+interface IDatabase {
+    + IsConnected: bool
+    + OpenConnection()
+    + CloseConnection()
+    + DeleteUser(user: User)
+    + InsertUser(user: User)
+    + SelectAllUsers()
+    + UpdateUser(user: User)
+}
+
+class MySQLDatabase {
+    + IsConnected: bool
+    + OpenConnection()
+    + CloseConnection()
+    + DeleteUser(user: User)
+    + InsertUser(user: User)
+    + SelectAllUsers()
+    + UpdateUser(user: User)
+}
+
+MySQLDatabase .up.|> IDatabase
+
+MySQLDatabase -left- User
+
+class Adapter {
+    + IsConnected: bool
+    + Gebruikers: Gebruiker[]
+    + OpenConnection()
+    + CloseConnection()
+    + DeleteUser(user: User)
+    + InsertUser(user: User)
+    + SelectAllUsers()
+    + UpdateUser(user: User)
+    + PasAan(gebruiker: Gebruiker)
+    + Verwijder(gebruiker: Gebruiker)
+    + VoegToe(gebruiker: Gebruiker)
+}
+
+Adapter .up.|> IDatabase
+Adapter .up.|> IGebruikerslijst
+Adapter::Gebruikers o-left- Gebruiker
+Adapter -right- User
+@enduml
