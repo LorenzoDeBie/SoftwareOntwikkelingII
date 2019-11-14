@@ -1,0 +1,60 @@
+@startuml
+class EmailValidation2 {
+    Validate(s: string): bool
+}
+note left of EmailValidation2::Validate
+    Leest alle deeltjes en roept juiste methodes op
+end note
+
+interface IStatus {
+    + Woord(): void
+    + Punt(): void
+    + At(): void
+}
+
+abstract class AStatus {
+
+}
+
+class I1 {
+    + Woord(): void
+    + Punt(): void
+    + At(): void
+}
+
+class I2 {
+    + Woord(): void
+    + Punt(): void
+    + At(): void
+}
+
+class I3 {
+    + Woord(): void
+    + Punt(): void
+    + At(): void
+}
+
+class Init {
+    + Woord(): void
+    + Punt(): void
+    + At(): void
+}
+
+class Accept {
+    + Woord(): void
+    + Punt(): void
+    + At(): void
+}
+
+IStatus <|.down. AStatus
+
+EmailValidation2 --o "1" AStatus
+
+AStatus <|-- I1
+AStatus <|-- I2
+AStatus <|-- I3
+AStatus <|-- Init
+AStatus <|-- Accept
+
+EmailValidation2 "status" -right-> "1" IStatus
+@enduml

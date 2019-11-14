@@ -1,0 +1,13 @@
+@startuml
+'skinparam linetype ortho
+scale 550 width
+
+[*] -> Init
+Init -right-> I1 : word
+I1 -right-> I2 : "."
+I2 --> I1 : word
+I1 -right-> I3 : "@"
+I3 -right->Accept: word
+Accept -->I3: "."\
+Accept ->[*]
+@enduml

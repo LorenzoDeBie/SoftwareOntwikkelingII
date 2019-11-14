@@ -1,0 +1,60 @@
+@startuml GroepNr3
+
+skinparam classAttributeIconSize 0
+
+title Oprdacht 3 Groep 3
+
+interface ICodering {
+    + Codeer(input: string) string
+}
+
+note "Eerst algemeen en dan SpecifiekCodeer oproepen als laatste" as N1
+note "ALgemeen gedeelte voor alle strategies" as N3
+abstract class AWisselSpeciaalCodering {
+    - vorige: ICodering
+    + Codeer(input: string) string
+    # {abstract} SpecifiekCodering(zinBuffer: StringBuilder) StringBuilder
+    - SpatiesVerwijderen(zin: string) StringBuilder
+    - MaakEven(zinBuffer: StringBuilder) StringBuilder
+    - VerwijderSpecialeTekens(zinBuffer: StringBuilder) StringBuilder
+}
+AWisselSpeciaalCodering::Codeer .right. N1
+AWisselSpeciaalCodering .left. N3
+
+class WisselCodering {
+    # SpecifiekCodering(zinBuffer: StringBuilder) StringBuilder
+}
+
+class CijferCodering {
+    # SpecifiekCodering(zinBuffer: StringBuilder) StringBuilder
+}
+
+class BlokCodering {
+    # SpecifiekCodering(zinBuffer: StringBuilder) StringBuilder
+}
+
+class BasisCodering {
+    + Codeer(input: string) string
+}
+
+
+ICodering <|.. AWisselSpeciaalCodering
+
+ICodering --o AWisselSpeciaalCodering::vorige
+
+WisselCodering -up-|> AWisselSpeciaalCodering
+CijferCodering -up-|> AWisselSpeciaalCodering
+BlokCodering -up-|> AWisselSpeciaalCodering
+
+ICodering <|.right. BasisCodering
+
+
+note "Strategies" as N2
+
+WisselCodering .. N2
+CijferCodering .. N2
+BlokCodering .. N2
+
+
+
+@enduml
