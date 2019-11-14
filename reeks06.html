@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!-- saved from url=(0086)https://ufora.ugent.be/content/enforced/57141-E761027A_2019/Labo/reeks06.html?ou=57141 -->
+<html lang="nl"><link type="text/css" id="dark-mode" rel="stylesheet" href="https://ufora.ugent.be/content/enforced/57141-E761027A_2019/Labo/reeks06.html?ou=57141"><style type="text/css" id="dark-mode-custom-style"></style><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Reeks 06: Creational Patterns</title>
+    <style>
+        table {border: 1px dotted black;}
+        thead {font-weight: bold;}
+        pre {background-color: #333333; color: white; border:1px solid black; padding: 4px; margin-top: 20px; margin-bottom: 20px; font-size: 13px;}
+        td {padding-left: 5px; vertical-align: top}
+        img {margin: 2px}
+    </style>
+  <script>function lti_launch( vars ) { var query = ''; for(var key in vars) { if(query.length == 0) { query += '?' + key + '=' + encodeURIComponent(vars[key]); } else { query += '&' + key + '=' + encodeURIComponent(vars[key]); } } location.replace( '/d2l/customization/pearsonlti/6606/Launch' + query ); }</script><script src="./reeks06_files/MathML.js.download"></script><script>document.addEventListener('DOMContentLoaded', function() { D2LMathML.DesktopInit('https://s.brightspace.com/lib/mathjax/2.6.1/MathJax.js?config=MML_HTMLorMML','https://s.brightspace.com/lib/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML%2cSafe'); });</script><script>window.addEventListener('message', function(event) { 
+					if( !event.data ) {
+						console.debug( 'Empty event received' );
+						return;
+					}
+					var params = JSON.parse(event.data);
+					if( !params.subject || params.subject !== 'lti.frameResize') {
+						console.debug( 'Message subject was not lti.frameResize' );
+						return;
+					}
+			
+					const MAX_FRAME_HEIGHT = 10000
+					if( !params.height || params.height < 1 || params.height > MAX_FRAME_HEIGHT ) {
+						console.warn( 'Invalid height value received, aborting' );
+						return;
+					}
+					var el = document.getElementsByTagName( 'iframe' );
+					for ( var i=0; i < el.length; i++ ) {
+						if( el[i].contentWindow === event.source ) {
+							el[i].style.height = params.height + 'px';
+                            el[i].style.width = '100%';
+							console.info( 'Setting iFrame height to ' + params.height );
+                            console.info( 'Setting iFrame width to 100%' );
+						}
+					}
+				});</script></head>
+  <body>
+    <h1>Reeks 06: Creational Patterns</h1>
+    <h2>Situering</h2>
+    <p>
+      QuizIT bvba is een (fictieve) jonge start-up die een quiz wenst te ontwikkelen voor kinderen.
+      Voor het ontwerp van de GUI werken ze reeds samen met een consultancy-bedrijf.
+      Aan jullie wordt gevraagd om een <b>flexibele datalaag</b> te ontwerpen. Het moet mogelijk zijn om later de vragen van de quiz in te lezen vanuit een databank, zonder aanpassingen te doen aan het ontwerp. Als het ontwerp klaar is moet je het ook implementeren.
+
+    </p>
+    <p><b>Meer informatie over de vereisten:</b></p>
+    <ul>
+      <li>De quiz zal in eerste instantie ontwikkeld worden als Windows-applicatie (met behulp van WPF), maar in een later stadium willen ze ook andere apparaten en platformen ondersteunen (native applicatie voor MacOS, mobiele applicatie voor iOS en/of Android, online webapplicatie, ...).</li>
+      <li> De quiz moet bestaat uit meerkeuzevragen.</li>
+      <li> Het moet mogelijk zijn om verschillende leeftijdscategorieën in te stellen. Elke leeftijdscategorie heeft andere vragen.</li>
+      <li> Er moet een belonings-systeem worden ingebouwd dat werkt met verschillende niveaus en beloningen:
+        <ul>
+          <li>Bij starten van de quiz heeft de speler nog geen niveau behaald.</li>
+          <li>Na een aantal vragen correct te beantwoorden stijgt de speler van niveau.</li>
+          <li>Bij elke overgang naar een hoger niveau krijgt de speler een passende beloning (in de vorm van een melding op het scherm).</li>
+          <li>Het moet mogelijk zijn om te tonen hoeveel juiste antwoorden er nog nodig zijn om over te gaan naar het volgend niveau. Bovendien moet het ook mogelijk zijn om het huidige niveau op het scherm te tonen.</li>
+        </ul>
+    </li></ul>
+    <p>
+      De vragen van de quiz zijn onafhankelijk van het niveau, maar de niveaus (en bijhorende beloningen) zijn wel afhankelijk van de leeftijdscategorie. Zo heeft elke leeftijdscategorie andere niveaus (met een andere omschrijving en beloning), en is het aantal punten nodig voor behalen van een niveau ook verschillend. Een peuter stijgt bijvoorbeeld al na 3 goede antwoorden naar niveau <i>ei</i> en krijgt daarbij een beer als beloning, terwijl 7-jarigen 5 goede antwoorden moeten geven vooraleer ze overgaan naar niveau <i>goed</i> en daarbij een rugzakje krijgen.
+    </p>
+
+    <h2>Opdracht</h2>
+    <p>
+      Ontwerp een datalaag voor de quiz, en werk deze uit voor 2 types invoerbestanden.
+      De opgave doorloopt verschillende stadia:
+    </p>
+    <ol>
+      <li>afspraken vastleggen voor de GUI-ontwikkelaars</li>
+      <li>ontwerp van de datalaag, gebruikmakend van één of meerdere design patterns</li>
+      <li>vastleggen testen</li>
+      <li>implementatie datalaag en testen voor 2 types invoerbestanden</li>
+      <li>uitwerken PoC: Console-applicatie</li>
+      <li>koppeling aan bestaande GUI.</li>
+    </ol>
+    <p>
+      Om de opdracht te realiseren maken we gebruik van pair programming. 
+      Bij pair programming werk je per 2 aan één toestel, waarbij elke persoon een andere rol heeft. 
+      Eén persoon is de uitvoerende programmeur (engels: driver) die de code schrijft. 
+      De andere persoon heeft een controlerende en vooruitdenkende taak (engels: observer), enerzijds ziet hij er op toe dat 
+      de programmeur geen fouten schrijft, anderzijds denkt hij al na over de toekomstige stappen. 
+      Uiteraard is dit enkel van toepassing bij het implementeren van de code. 
+      Het ontwerp wordt door beide personen samen gemaakt. 
+      Bij het implementeren wissel je bovendien regelmatig van rol (bv. om de 10 minuten).
+    </p>
+    <h3>1. Afspraken met de GUI-ontwikkelaars</h3>
+    <p>
+      De GUI-ontwikkelaars willen parallel met ons aan de GUI werken. 
+      Zijn er nog onduidelijkheden? Welke afspraken moet je met hen maken?
+      Formuleer een aantal vragen, kies een oplossing en leg de afspraken met de GUI-ontwikkelaars vast. 
+      Toon deze informatie aan de labobegeleiders. 
+      Als je in het vervolg van het labo deze afspraken zou moeten aanpassen, noteer dit dan en toon dit aan het einde van het labo.
+    </p>
+    <h3>2. Ontwerp datalaag</h3>
+    <p>
+      Werk een ontwerp voor de datalaag uit op papier. Welk(e) pattern(s) kan je hierbij gebruiken? Hou hierbij rekening met de volgende aspecten:
+    </p>
+    <ul>
+        <li>De datalaag moet eenvoudig te gebruiken zijn voor verschillende applicaties (WPF applicatie, console-programma, MVC webapplicatie, ...) en moet dus gemakkelijk te exporteren zijn in de vorm van één of meerdere dll-bestanden.</li>
+        <li>De leeftijdscategorieën kunnen later nog uitgebreid worden, bv. naar 8-jarigen, tieners, volwassenen, ...</li>
+        <li>De inhoud van de vragen en de beschrijving van de niveaus/beloningen moet flexibel zijn. Zo kan het zijn dat de vragen en niveaus ingelezen worden uit plaintext-, JSON- of CSV-files, opgehaald worden uit een NoSQL of een relationele databank, ...</li>
+    </ul>
+    
+    <h3>3. Vastleggen testen</h3>
+
+    <p>
+      Beschrijf (op papier of elektronisch) welke testen je zou moeten voorzien voor de datalaag. 
+      Toon de omschrijving van de testen aan een labobegeleider.
+    </p>
+    <h3>4. Implementatie datalaag en testen</h3>
+    <p>
+      Voor de implementatie van de datalaag kan je <a href="https://ufora.ugent.be/content/enforced/57141-E761027A_2019/Labo/code/dataset.zip?_&amp;d2lSessionVal=A9DFWUZ6ZhZY6MWApHq2pSx6K&amp;ou=57141">deze</a> invoerbestanden gebruiken.
+    </p>
+    <ul>
+      <li>Er zijn 2 types bestanden beschikbaar: plaintext- en CSV-files. Het formaat van beide types bestanden is (uiteraard) verschillend.</li>
+      <li>Voor elke type is er een bestand voorzien dat de verschillende leeftijdscategorieën bevat</li>
+      <li>Per leeftijdscategorie zijn er 2 bestanden beschikbaar; een bestand met de vragen en antwoorden, en een bestand dat de verschillende niveaus bevat en de bijhorende beloningen.</li>
+    </ul>
+    <p>
+      De gegeven bestanden bevatten maar een subset van de uiteindelijke quiz, en in een later stadium zullen uitgebreidere bestanden aangeleverd worden. Om in de toekomst eenvoudig de bestanden te kunnen vervangen is het dus belangrijk dat je de naam en/of inhoud van de gegeven invoerbestanden <b>niet</b> wijzigt!
+    </p>
+    <p>
+      Controleer je ontwerp van puntje 2. Is je ontwerp flexibel genoeg om beide types bestanden te ondersteunen? Pas je ontwerp aan indien nodig en implementeer de datalaag in C#. Welk type project gebruik je best?
+    </p>
+    <p>
+      Voeg bovendien een Unit Test project toe aan je solution waarin je enkele zinvolle unit testen uit je lijstje implementeert.
+    </p>
+    <h3 id="deel2">5. PoC: Console-applicatie</h3>
+  <p>
+      Voorzie een eenvoudige Console applicatie waarmee je de applicatie kan uittesten (als Proof of Concept).<br>
+      Hieronder vind je een mogelijke output van het programma:
+    </p>
+    
+<pre><code>Create quiz from CSV or TXT: csv
+1 - Toddlers
+2 - Preschoolers
+3 - First grade
+4 - Second grade
+Create quiz for which age? [1-4]: 1
+#1. Wat sound does a duck make?
+- Quack
+- Caw
+- Growl
+- Squeak
+Your answer (or STOP to exit): Quack
+<span style="color:green">Correct!</span>                Your score: 1
+                        Next Level: 2 more points to go
+#2. A leaf of a tree is...
+- Purple
+- Orange
+- Green
+- Black
+Your answer (or STOP to exit): Purple
+<span style="color:red">Wrong answer!</span>           Your score: 1
+                        Next Level: 2 more points to go
+#3. Which one doesn't belong?
+- Car
+- Butterfly
+- Train
+- Bus
+Your answer (or STOP to exit): Butterfly
+<span style="color:green">Correct!</span>                Your score: 2
+                        Next Level: 1 more points to go
+#4. Wat sound does a duck make?
+- Quack
+- Caw
+- Growl
+- Squeak
+Your answer (or STOP to exit): Quack
+<span style="color:green">Correct!</span>                Your score: 3
+                        Current Level: egg (Reward: doll)
+                        Next Level: 3 more points to go
+#5. A leaf of a tree is...
+- Purple
+- Orange
+- Green
+- Black
+Your answer (or STOP to exit): STOP
+</code></pre>
+
+    <h3>6. Een eenvoudige GUI</h3>
+
+    <p>
+      Door onvoorziene uitgaven en interne problemen heeft QuizIT bvba de samenwerking met de GUI-ontwikkelaars moeten stopzetten. Gelukkig hadden de GUI-onwikkelaars wel al een eerste rudimentair ontwerp opgeleverd (zie hieronder).
+      Implementeer de GUI in WPF met behulp van je datalaag.
+    </p>
+    <p>
+      <img src="./reeks06_files/reeks06_GUI.png" alt="Quiz GUI - Mockup">
+    </p>
+    <ul>
+      <li>Het hoofdscherm bestaat uit 2 (herbruikbare) WPF user controls (<a href="https://msdn.microsoft.com/en-us/library/cc294992.aspx">link</a>), één control voor het inladen van een quiz, en één control voor het weergeven van de quiz.</li>
+      <li>De talen komen overeen met de types invoerbestanden (EN = CSV, NL = plaintext).</li>
+      <li>Bij wisselen van taal worden de overeenkomstige leeftijdscategorieën weergegeven in de GUI.</li>
+      <li>De onderste user control is enkel actief wanneer een quiz ingeladen is.</li>
+    </ul>
+    <p>Om een WPF user control binnen hetzelfde WPF project aan je <i>MainWindow</i> toe te voegen kan je in XAML de <i>local</i> tag gebruiken, zoals geïllustreerd in onderstaand voorbeeld:
+    </p>
+<pre><code>&lt;local:LoadQuiz Grid.Row="0" Grid.Column="0"/&gt;
+</code></pre>
+<p>Je kan de WPF user control een naam geven:
+</p><pre><code>&lt;local:LoadQuiz  x:Name="loadQuiz" Grid.Row="0" Grid.Column="0"/&gt;
+</code></pre>
+Dan kan je eenvoudig aanpassingen doen, vb een methode <code> void Methode(object sender, RoutedEventArgs e)</code> (van <code>MainWindow.cs</code>) toevoegen aan de delegate voor een knop <code>btnCSV.Checked</code>:
+<pre><code>loadQuiz.btnCSV.Checked += Methode; 
+</code></pre>
+
+           
+  
+
+<div id="eid-chrome-extension-is-installed"></div></body></html>
