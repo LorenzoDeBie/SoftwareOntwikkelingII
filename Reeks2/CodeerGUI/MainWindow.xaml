@@ -37,7 +37,7 @@
             </Grid>
         </GroupBox>
         <GroupBox Grid.Row="2" Header="Resultaat" BorderBrush="Black" BorderThickness="3">
-            <TextBox x:Name="txtOutput" Margin="5" IsEnabled="False"></TextBox>
+            <TextBox x:Name="txtOutput" Margin="5" IsEnabled="False" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
         </GroupBox>
     </Grid>
 </Window>
