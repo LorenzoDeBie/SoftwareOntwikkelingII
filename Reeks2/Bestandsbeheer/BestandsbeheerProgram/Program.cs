@@ -11,9 +11,13 @@ namespace BestandsbeheerProgram
         {
             Console.WriteLine("Enter username:");
             string username = Console.ReadLine();
+			User user = new User()
+			{
+				Username = username,
+				isAdmin = username.Equals("admin")
+			};
             Console.WriteLine();
 
-            Dictionary<string,IFile> files = new Dictionary<string,IFile>();
             string fileName = "";
             while (true)
             {
@@ -24,19 +28,23 @@ namespace BestandsbeheerProgram
                 }
 
                 if (fileName.Equals("STOP")) return;
-                
-                if (!files.ContainsKey(fileName))
-                {
-                    IFile file = new FileProxy(username, fileName);
-                    files.Add(file.FileName, file);
-                }
 
-                Console.WriteLine();
-                try
-                {
-                    files[fileName].WriteContent();
-                    
-                }
+				try
+				{
+					IFile current = new FileProtectionProxy(fileName, user);
+					string currentContent = current.WriteContent();
+					Console.WriteLine("\n====== " + fileName + " ======");
+					Console.WriteLine(currentContent);
+					Console.WriteLine("============================\n");
+				}
+				catch(InvalidOperationException ex)
+				{
+					Console.Out.WriteLine();
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.Out.Write("[ERR] ");
+					Console.ResetColor();
+					Console.WriteLine(ex.Message);
+				}
                 catch (FileNotFoundException)
                 {
                     Console.WriteLine("File not found! Please try again.");

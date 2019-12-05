@@ -12,14 +12,17 @@ namespace Bestandsbeheer
 
         public File(string fileName)
         {
-            FileName = fileName;
-            StreamReader streamReader = new StreamReader(FileName);
-            _content = streamReader.ReadToEndAsync().Result;
-        }
+			Console.Out.WriteLine();
+			Console.ForegroundColor = ConsoleColor.DarkGreen;
+			Console.Out.Write("[INF] ");
+			Console.ResetColor();
+			Console.Out.WriteLine("Loading file " + fileName + " from disk...");
+			_content = System.IO.File.ReadAllText(fileName);
+		}
         
-        public void WriteContent()
+        public string WriteContent()
         {
-            Console.WriteLine(_content);
+			return _content;
         }
     }
 }
